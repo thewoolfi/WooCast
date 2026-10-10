@@ -141,6 +141,18 @@ public static class UpdateChecker
                 continue;
             }
 
+            // Установщик не подходит. Приложение обновляет себя, подменяя собственный
+            // файл скачанным, и если скачать установщик, оно заменит себя им, а не
+            // обновится. Нужна сама сборка приложения.
+            //
+            // Это не мелочь: GitHub отдаёт вложения не в том порядке, в каком их
+            // заливали, и первым в выпуске может оказаться именно установщик.
+            if (name.Contains("setup", StringComparison.OrdinalIgnoreCase) ||
+                name.Contains("install", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
             var url = asset.TryGetProperty("browser_download_url", out var urlElement)
                 ? urlElement.GetString()
                 : null;
