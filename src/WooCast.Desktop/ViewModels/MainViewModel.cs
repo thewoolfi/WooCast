@@ -514,6 +514,30 @@ public sealed partial class MainViewModel : ObservableObject, IAsyncDisposable
         }
     }
 
+    /// <summary>
+    /// Ссылка для поддержки проекта.
+    /// </summary>
+    /// <remarks>
+    /// Та же ссылка, что и в приложении для приставки: поддержка не привязана
+    /// к тому, с какой стороны смотрят трансляцию.
+    /// </remarks>
+    public const string SupportUrl = "https://boosty.to/andrewwoolfi";
+
+    /// <summary>Открыть страницу поддержки проекта в браузере.</summary>
+    [RelayCommand]
+    private void OpenSupportPage()
+    {
+        try
+        {
+            System.Diagnostics.Process.Start(
+                new System.Diagnostics.ProcessStartInfo(SupportUrl) { UseShellExecute = true });
+        }
+        catch (Exception ex)
+        {
+            _log.Warn($"Не удалось открыть страницу поддержки: {ex.Message}");
+        }
+    }
+
     /// <summary>Открыть страницу выпуска с новой версией.</summary>
     [RelayCommand]
     private void OpenUpdatePage()

@@ -151,7 +151,7 @@ else {
 $vigemSource = Join-Path $env:LOCALAPPDATA 'WooCast\vendor\vigem\ViGEmBus_setup.exe'
 
 if (Test-Path $vigemSource) {
-    $vigemTarget = Join-Path $desktopOut 'драйвер геймпада'
+    $vigemTarget = Join-Path $desktopOut 'driver'
     New-Item -ItemType Directory -Force -Path $vigemTarget | Out-Null
     Copy-Item $vigemSource -Destination (Join-Path $vigemTarget 'ViGEmBus_setup.exe') -Force
 
@@ -159,6 +159,44 @@ if (Test-Path $vigemSource) {
 }
 else {
     Write-Note 'установщик драйвера геймпада не найден — запустите tools/fetch-vigem.ps1'
+}
+
+# --- установщик ---------------------------------------------------------------
+#
+# Установщик собирается Inno Setup: он ставит всё сразу — приложение, ffmpeg,
+# установщик драйвера и приложение для приставки. Если Inno Setup не установлен,
+# это не ошибка: остаётся обычная папка поставки.
+
+$iscc = Get-ChildItem @(
+    (Join-Path $env:LOCALAPPDATA 'Programs\Inno Setup 6\ISCC.exe'),
+    'C:\Program Files (x86)\Inno Setup 6\ISCC.exe',
+    'C:\Program Files\Inno Setup 6\ISCC.exe'
+) -ErrorAction SilentlyContinue | Select-Object -First 1
+
+if ($iscc) {
+    Write-Step 'Установщик'
+
+    $issPath = Join-Path $root 'installer\WooCast.iss'
+
+    # Вывод компилятора сохраняется: при неудаче причина должна быть видна,
+    # а не спрятана за кодом возврата. В этот раз ошибка выглядела как «код 2»
+    # без объяснения, и причину пришлось искать заново.
+    $isccLog = Join-Path $env:TEMP 'woocast-installer-build.log'
+    & $iscc.FullName "/DAppVersion=$Version" $issPath *> $isccLog
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "  [!] Не удалось собрать установщик (код $LASTEXITCODE)" -ForegroundColor Yellow
+        Get-Content $isccLog -Tail 12 | ForEach-Object { Write-Note $_ }
+    }
+    else {
+        $setup = Join-Path $dist "WooCast-Setup-$Version.exe"
+        if (Test-Path $setup) {
+            Write-Ok "WooCast-Setup-$Version.exe — $(Format-Size (Get-Item $setup).Length)"
+        }
+    }
+}
+else {
+    Write-Note 'Inno Setup не найден — установщик не собирается, остаётся папка поставки'
 }
 
 # --- сопроводительный файл ---------------------------------------------------
@@ -179,8 +217,8 @@ Windows 10 или 11, 64-разрядная.
   WooCast.exe             — приложение (запускать этот файл)
   ffmpeg\ffmpeg.exe       — кодировщик видео, берётся из папки рядом с приложением
   WooCast-TV-<версия>.apk — приложение для приставки или телефона
-  драйвер геймпада\       — установщик ViGEmBus, нужен только для управления с контроллера
-  ПРОЧТИ-МЕНЯ.txt         — этот файл
+  driver\       — установщик ViGEmBus, нужен только для управления с контроллера
+  README.txt         — этот файл
 
 Папку можно целиком скопировать на другой компьютер или на флешку: пути нигде
 не прописаны, всё ищется рядом с приложением. ffmpeg также ищется в переменной
@@ -207,7 +245,7 @@ Windows 10 или 11, 64-разрядная.
 телефону, а управление уходит на компьютер и подаётся в игру как обычный геймпад.
 Включите «Управление с приёмника» в настройках и выберите вид геймпада.
 
-Для этого нужен драйвер ViGEmBus. Запустите «драйвер геймпада\ViGEmBus_setup.exe»
+Для этого нужен драйвер ViGEmBus. Запустите «driver\ViGEmBus_setup.exe»
 и согласитесь с установкой — потребуются права администратора, после установки
 может понадобиться перезагрузка.
 
@@ -224,9 +262,9 @@ Windows 10 или 11, 64-разрядная.
 Поправка применяется при запуске трансляции.
 "@
 
-$readmePath = Join-Path $desktopOut 'ПРОЧТИ-МЕНЯ.txt'
+$readmePath = Join-Path $desktopOut 'README.txt'
 [System.IO.File]::WriteAllText($readmePath, $readme, (New-Object System.Text.UTF8Encoding $true))
-Write-Ok 'ПРОЧТИ-МЕНЯ.txt'
+Write-Ok 'README.txt'
 
 # --- Android ----------------------------------------------------------------
 

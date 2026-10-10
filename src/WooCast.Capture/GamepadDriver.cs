@@ -48,7 +48,7 @@ public static class GamepadDriver
         var candidates = new[]
         {
             // Основное место: папка поставки.
-            Path.Combine(baseDirectory, "драйвер геймпада", "ViGEmBus_setup.exe"),
+            Path.Combine(baseDirectory, "driver", "ViGEmBus_setup.exe"),
 
             // Запасные варианты: рядом с программой и в кэше загрузки.
             Path.Combine(baseDirectory, "ViGEmBus_setup.exe"),

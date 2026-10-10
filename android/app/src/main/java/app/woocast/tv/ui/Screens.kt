@@ -1,8 +1,10 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: Apache-2.0
 // Copyright (c) 2025 WooCast contributors
 
 package app.woocast.tv.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.compose.foundation.Image
@@ -36,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -48,6 +51,9 @@ import app.woocast.tv.R
 import app.woocast.tv.engine.ReceiverUiState
 import kotlinx.coroutines.delay
 import java.util.Locale
+
+/** Адрес для поддержки проекта — тот же, что и в приложении для ПК. */
+const val SupportUrl = "https://boosty.to/andrewwoolfi"
 
 /**
  * Корневой экран приложения.
@@ -223,12 +229,30 @@ private fun WaitingScreen(
 
             Spacer(Modifier.height(22.dp))
 
-            FocusableButton(
-                text = stringResource(
-                    if (logVisible) R.string.idle_button_hide_log else R.string.idle_button_log,
-                ),
-                onClick = onToggleLog,
-            )
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                FocusableButton(
+                    text = stringResource(
+                        if (logVisible) R.string.idle_button_hide_log else R.string.idle_button_log,
+                    ),
+                    onClick = onToggleLog,
+                )
+
+                // Поддержка проекта: открывается в браузере телефона или приставки.
+                // Та же ссылка, что и в приложении для ПК.
+                val supportContext = LocalContext.current
+                FocusableButton(
+                    text = stringResource(R.string.idle_button_support),
+                    onClick = {
+                        try {
+                            supportContext.startActivity(
+                                Intent(Intent.ACTION_VIEW, Uri.parse(SupportUrl)),
+                            )
+                        } catch (e: Exception) {
+                            // На приставке может не оказаться браузера — это не повод падать.
+                        }
+                    },
+                )
+            }
         }
 
         Spacer(Modifier.width(40.dp))

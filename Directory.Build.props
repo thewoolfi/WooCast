@@ -8,7 +8,7 @@
     <Company>WooCast contributors</Company>
     <Authors>WooCast contributors</Authors>
     <Copyright>Copyright (c) 2025 WooCast contributors</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
 
     <TargetFramework>net10.0</TargetFramework>

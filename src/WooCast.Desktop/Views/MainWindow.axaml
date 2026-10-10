@@ -36,22 +36,31 @@
                            FontSize="12" />
             </StackPanel>
 
-            <Border Grid.Column="2" Classes="pill" VerticalAlignment="Center">
-                <Border.Background>
-                    <SolidColorBrush Color="#140E0E12" />
-                </Border.Background>
-                <Border.BorderBrush>
-                    <SolidColorBrush Color="#2A3340" />
-                </Border.BorderBrush>
-                <StackPanel Orientation="Horizontal" Spacing="9">
-                    <Ellipse Width="8" Height="8" VerticalAlignment="Center">
-                        <Ellipse.Fill>
-                            <SolidColorBrush Color="#FFC24B" />
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <TextBlock Text="{Binding StatusText}" FontSize="12" VerticalAlignment="Center" />
-                </StackPanel>
-            </Border>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+
+                <!-- Поддержка проекта: та же ссылка, что и в приложении для приставки. -->
+                <Button Content="Поддержать"
+                        Command="{Binding OpenSupportPageCommand}"
+                        ToolTip.Tip="Поддержать проект на Boosty"
+                        FontSize="12" />
+
+                <Border Classes="pill" VerticalAlignment="Center">
+                    <Border.Background>
+                        <SolidColorBrush Color="#140E0E12" />
+                    </Border.Background>
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="#2A3340" />
+                    </Border.BorderBrush>
+                    <StackPanel Orientation="Horizontal" Spacing="9">
+                        <Ellipse Width="8" Height="8" VerticalAlignment="Center">
+                            <Ellipse.Fill>
+                                <SolidColorBrush Color="#FFC24B" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock Text="{Binding StatusText}" FontSize="12" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
         </Grid>
 
         <!-- ═══ Содержимое ═══ -->

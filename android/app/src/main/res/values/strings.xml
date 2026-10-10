@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  SPDX-License-Identifier: MIT
+  SPDX-License-Identifier: Apache-2.0
   Copyright (c) 2025 WooCast contributors
 -->
 <resources>
@@ -65,4 +65,5 @@
     <string name="err_unsupported">Поток не поддерживается этим устройством</string>
     <string name="err_control_lost">Управляющее соединение с ПК разорвано</string>
     <string name="err_internal">Внутренняя ошибка приёмника</string>
+    <string name="idle_button_support">Поддержать</string>
 </resources>

@@ -1,4 +1,4 @@
-﻿# SPDX-License-Identifier: MIT
+﻿# SPDX-License-Identifier: Apache-2.0
 # Copyright (c) 2025 WooCast contributors
 #
 # Создание и запуск эмулятора Android TV для проверки приёмника без реальной приставки.

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Установщик WooCast.
+
+  Ставит всё сразу: приложение, ffmpeg, установщик драйвера геймпада и приложение
+  для приставки. Отдельных файлов, которые нужно раскладывать руками, не остаётся.
+
+  Установка идёт в папку пользователя (%LOCALAPPDATA%\Programs\WooCast), поэтому
+  права администратора не требуются: запрос прав появляется только при запуске
+  установщика драйвера геймпада, и то по желанию.
+
+  Собирается командой:
+      wix build installer\WooCast.wxs -o dist\WooCast-Setup.msi
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <Package
+      Name="WooCast"
+      Manufacturer="WooCast contributors"
+      Version="0.1.0"
+      UpgradeCode="7F2C4A18-9D63-4B57-9E21-3C8A5F0D6B44"
+      Scope="perUser"
+      Compressed="yes">
+
+    <!-- При установке новой версии прежняя убирается сама. -->
+    <MajorUpgrade DowngradeErrorMessage="Установлена более новая версия WooCast. Сначала удалите её." />
+
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <!-- Куда ставить: папка пользователя, без прав администратора. -->
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="ProgramsFolder" Name="Programs">
+        <Directory Id="INSTALLFOLDER" Name="WooCast" />
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="AppMenuFolder" Name="WooCast" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="DesktopFolder" />
+
+    <Feature Id="Main" Title="WooCast" Level="1">
+      <ComponentGroupRef Id="AppFiles" />
+      <ComponentRef Id="StartMenuShortcut" />
+      <ComponentRef Id="DesktopShortcut" />
+    </Feature>
+
+    <!--
+      Всё содержимое папки поставки уходит в установщик как есть: приложение,
+      папка ffmpeg, папка driver и приложение для приставки. Список файлов
+      не перечисляется руками — иначе при добавлении файла его забыли бы включить.
+    -->
+    <ComponentGroup Id="AppFiles" Directory="INSTALLFOLDER">
+      <Files Include="..\dist\WooCast-Desktop-0.1.0\**" />
+    </ComponentGroup>
+
+    <!-- Ярлык в меню «Пуск». -->
+    <Component Id="StartMenuShortcut" Directory="AppMenuFolder" Guid="A1B2C3D4-1111-4A2B-9C3D-5E6F70819202">
+      <Shortcut Id="StartMenuLink"
+                Name="WooCast"
+                Description="Трансляция экрана на Android TV"
+                Target="[INSTALLFOLDER]WooCast.exe"
+                WorkingDirectory="INSTALLFOLDER" />
+      <RemoveFolder Id="AppMenuFolder" On="uninstall" />
+      <RegistryValue Root="HKCU" Key="Software\WooCast" Name="StartMenu" Type="integer" Value="1" KeyPath="yes" />
+    </Component>
+
+    <!-- Ярлык на рабочем столе. -->
+    <Component Id="DesktopShortcut" Directory="DesktopFolder" Guid="A1B2C3D4-2222-4A2B-9C3D-5E6F70819203">
+      <Shortcut Id="DesktopLink"
+                Name="WooCast"
+                Description="Трансляция экрана на Android TV"
+                Target="[INSTALLFOLDER]WooCast.exe"
+                WorkingDirectory="INSTALLFOLDER" />
+      <RegistryValue Root="HKCU" Key="Software\WooCast" Name="Desktop" Type="integer" Value="1" KeyPath="yes" />
+    </Component>
+
+  </Package>
+</Wix>

@@ -49,7 +49,14 @@ jobs:
         shell: pwsh
         run: ./tools/fetch-vigem.ps1
 
-      - name: Собрать поставку и приложение для приставки
+      - name: Установить Inno Setup
+        # Нужен для сборки установщика. Ставится без прав администратора.
+        shell: pwsh
+        run: |
+          choco install innosetup --yes --no-progress
+          "Inno Setup установлен"
+
+      - name: Собрать поставку, установщик и приложение для приставки
         shell: pwsh
         run: |
           # Метка выпуска приходит с ведущей «v» — в именах файлов она лишняя.
@@ -63,7 +70,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            dist/WooCast-Desktop-*/WooCast.exe
+            dist/WooCast-Setup-*.exe
             dist/WooCast-TV-*.apk
           generate_release_notes: true
 
@@ -72,5 +79,5 @@ jobs:
         with:
           name: woocast-build
           path: |
-            dist/WooCast-Desktop-*/WooCast.exe
+            dist/WooCast-Setup-*.exe
             dist/WooCast-TV-*.apk

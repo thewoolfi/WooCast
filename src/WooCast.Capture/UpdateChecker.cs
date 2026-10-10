@@ -43,8 +43,8 @@ public static class UpdateChecker
     /// </remarks>
     public const string RepositoryVariable = "WOOCAST_UPDATE_REPO";
 
-    /// <summary>Репозиторий обновлений по умолчанию.</summary>
-    public const string DefaultRepository = "woocast/woocast";
+    /// <summary>Репозиторий обновлений по умолчанию — настоящий репозиторий проекта.</summary>
+    public const string DefaultRepository = "thewoolfi/WooCast";
 
     private static readonly HttpClient Client = CreateClient();
 
