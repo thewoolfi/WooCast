@@ -9,7 +9,6 @@
 [![Platform](https://img.shields.io/badge/ТВ-Android%20TV-3DDC84.svg)](#статус)
 [![Protocol](https://img.shields.io/badge/Protocol-WCP%2F1-8B5CF6.svg)](docs/protocol.md)
 
-<img src="docs/screenshots/desktop-app.png" alt="Приложение WooCast для ПК" width="720">
 
 </div>
 
@@ -96,8 +95,6 @@ WooCast состоит из двух частей:
 | Расхождение fps | нет накопления задержки за 40 секунд непрерывной работы |
 
 <div align="center">
-<img src="docs/screenshots/tv-waiting.png" alt="Экран ожидания на телевизоре" width="440">
-<img src="docs/screenshots/tv-streaming.png" alt="Трансляция экрана ПК на телевизоре" width="440">
 </div>
 
 ## Быстрый старт

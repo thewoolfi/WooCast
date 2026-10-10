@@ -9,7 +9,6 @@
 [![Platform](https://img.shields.io/badge/TV-Android%20TV-3DDC84.svg)](#status)
 [![Protocol](https://img.shields.io/badge/Protocol-WCP%2F1-8B5CF6.svg)](docs/protocol.md)
 
-<img src="docs/screenshots/desktop-app.png" alt="WooCast desktop app" width="720">
 
 </div>
 
@@ -96,8 +95,6 @@ End-to-end test "PC → Android TV" (Android TV 14 emulator, 720p30, wired netwo
 | fps drift | no latency accumulation over 40 seconds of continuous operation |
 
 <div align="center">
-<img src="docs/screenshots/tv-waiting.png" alt="Waiting screen on the TV" width="440">
-<img src="docs/screenshots/tv-streaming.png" alt="PC screen being cast to the TV" width="440">
 </div>
 
 ## Quick start
