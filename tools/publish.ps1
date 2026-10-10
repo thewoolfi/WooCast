@@ -272,16 +272,40 @@ if ($Android) {
     Write-Step 'Приложение для Android TV'
 
     $androidRoot = Join-Path $root 'android'
-    $javaHome = Get-ChildItem (Join-Path $env:LOCALAPPDATA 'WooCast\sdk\jdk') -Directory -Filter 'jdk-17*' -ErrorAction SilentlyContinue |
-        Select-Object -First 1
+
+    # Сначала берётся то, что уже настроено в окружении: так сборка работает
+    # на серверах GitHub, где JDK и Android SDK стоят в своих местах. Только если
+    # окружение пустое, ищется папка проекта, подготовленная tools/dev-env.ps1.
+    $javaHome = $null
+
+    if ($env:JAVA_HOME -and (Test-Path $env:JAVA_HOME)) {
+        $javaHome = $env:JAVA_HOME
+    }
+    else {
+        $found = Get-ChildItem (Join-Path $env:LOCALAPPDATA 'WooCast\sdk\jdk') -Directory -Filter 'jdk-17*' -ErrorAction SilentlyContinue |
+            Select-Object -First 1
+
+        if ($found) { $javaHome = $found.FullName }
+    }
 
     if (-not $javaHome) {
         throw 'Не найден JDK 17. Запустите tools/dev-env.ps1.'
     }
 
-    $env:JAVA_HOME = $javaHome.FullName
-    $env:ANDROID_HOME = Join-Path $env:LOCALAPPDATA 'WooCast\sdk\android-sdk'
-    $env:ANDROID_SDK_ROOT = $env:ANDROID_HOME
+    $env:JAVA_HOME = $javaHome
+
+    $androidSdk = $null
+
+    foreach ($candidate in @($env:ANDROID_HOME, $env:ANDROID_SDK_ROOT)) {
+        if ($candidate -and (Test-Path $candidate)) { $androidSdk = $candidate; break }
+    }
+
+    if (-not $androidSdk) {
+        $androidSdk = Join-Path $env:LOCALAPPDATA 'WooCast\sdk\android-sdk'
+    }
+
+    $env:ANDROID_HOME = $androidSdk
+    $env:ANDROID_SDK_ROOT = $androidSdk
 
     Push-Location $androidRoot
     try {
