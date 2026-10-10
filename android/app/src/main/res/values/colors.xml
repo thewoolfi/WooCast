@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  SPDX-License-Identifier: MIT
+  Copyright (c) 2025 WooCast contributors
+-->
+<resources>
+    <color name="wc_background">#FF07090D</color>
+    <color name="wc_surface">#FF11151C</color>
+    <color name="wc_accent">#FF35D6C4</color>
+    <color name="wc_launcher_background">#FF35D6C4</color>
+</resources>

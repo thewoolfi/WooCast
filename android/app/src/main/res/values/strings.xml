@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  SPDX-License-Identifier: MIT
+  Copyright (c) 2025 WooCast contributors
+-->
+<resources>
+    <string name="app_name">WooCast TV</string>
+    <string name="service_description">Приём трансляции экрана WooCast</string>
+
+    <!-- Notification -->
+    <string name="notif_channel_name">Трансляция WooCast</string>
+    <string name="notif_channel_description">Постоянное уведомление во время приёма трансляции</string>
+    <string name="notif_title">WooCast TV</string>
+    <string name="notif_text_idle">Ожидание подключения с ПК</string>
+    <string name="notif_text_streaming">Идёт трансляция</string>
+    <string name="notif_stop">Остановить</string>
+
+    <!-- Idle screen -->
+    <string name="idle_status_online">В СЕТИ</string>
+    <string name="idle_status_offline">НЕТ СЕТИ</string>
+    <string name="idle_hint">Запустите WooCast на ПК</string>
+    <string name="idle_hint_sub">Устройство появится в списке компьютера автоматически</string>
+    <string name="idle_label_device">Устройство</string>
+    <string name="idle_label_ip">IP-адрес</string>
+    <string name="idle_label_control_port">Порт управления</string>
+    <string name="idle_label_media_port">Порт медиа</string>
+    <string name="idle_label_discovery_port">Порт обнаружения</string>
+    <string name="idle_label_decoder">Декодер</string>
+    <string name="idle_label_caps">Поддержка</string>
+    <string name="idle_button_log">Журнал событий</string>
+    <string name="idle_button_hide_log">Скрыть журнал</string>
+    <string name="idle_log_title">Журнал событий</string>
+    <string name="idle_log_empty">Пока пусто</string>
+    <string name="idle_decoder_unknown">определяется…</string>
+    <string name="idle_decoder_software">программный (аппаратный H.264 не найден)</string>
+
+    <!-- Streaming screen -->
+    <string name="stream_source_unknown">ПК</string>
+    <string name="stream_overlay_hint">OK — скрыть панель</string>
+    <string name="stream_metric_fps">Частота кадров</string>
+    <string name="stream_metric_bitrate">Битрейт</string>
+    <string name="stream_metric_latency">Задержка</string>
+    <string name="stream_metric_resolution">Разрешение</string>
+    <string name="stream_metric_dropped">Пропущено</string>
+    <string name="stream_metric_audio">Звук</string>
+    <string name="stream_from">Источник</string>
+    <string name="stream_waiting_frame">Ожидание первого кадра…</string>
+    <string name="stream_reconnecting">Перезапуск декодера…</string>
+    <string name="value_unknown">—</string>
+
+    <!-- Error screen -->
+    <string name="error_title">Трансляция прервана</string>
+    <string name="error_reason">Причина</string>
+    <string name="error_button_dismiss">Понятно</string>
+    <string name="error_button_retry">Вернуться к ожиданию</string>
+    <string name="error_code_label">Код</string>
+
+    <!-- Error reasons -->
+    <string name="err_decoder_init">Не удалось запустить аппаратный декодер H.264</string>
+    <string name="err_decoder_failed">Декодер H.264 аварийно завершился</string>
+    <string name="err_media_socket">Обрыв медиа-соединения</string>
+    <string name="err_media_timeout">ПК не подключился к медиа-порту за 5 секунд</string>
+    <string name="err_bad_token">Неверный токен медиа-сессии</string>
+    <string name="err_bad_magic">Некорректный заголовок медиа-потока</string>
+    <string name="err_unsupported">Поток не поддерживается этим устройством</string>
+    <string name="err_control_lost">Управляющее соединение с ПК разорвано</string>
+    <string name="err_internal">Внутренняя ошибка приёмника</string>
+</resources>

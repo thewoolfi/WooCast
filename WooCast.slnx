@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/WooCast.Capture/WooCast.Capture.csproj" />
+    <Project Path="src/WooCast.Cli/WooCast.Cli.csproj" />
+    <Project Path="src/WooCast.Desktop/WooCast.Desktop.csproj" />
+    <Project Path="src/WooCast.Protocol/WooCast.Protocol.csproj" />
+  </Folder>
+</Solution>

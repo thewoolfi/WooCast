@@ -1,0 +1,211 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Базовые текстовые стили. -->
+    <Style Selector="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource WcTextBrush}" />
+        <Setter Property="FontFamily" Value="avares://Avalonia.Fonts.Inter/Assets#Inter" />
+    </Style>
+
+    <Style Selector="TextBlock.muted">
+        <Setter Property="Foreground" Value="{StaticResource WcTextMutedBrush}" />
+    </Style>
+
+    <Style Selector="TextBlock.section">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="LetterSpacing" Value="1.4" />
+        <Setter Property="Foreground" Value="{StaticResource WcTextMutedBrush}" />
+    </Style>
+
+    <Style Selector="TextBlock.title">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style Selector="TextBlock.metric">
+        <Setter Property="FontFamily" Value="Consolas, Menlo, monospace" />
+        <Setter Property="FontSize" Value="13" />
+    </Style>
+
+    <!-- Карточка устройства. -->
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{StaticResource WcSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource WcOutlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="Padding" Value="16,14" />
+    </Style>
+
+    <!--
+        Выбранное устройство. Раньше выбор был почти незаметен: подсветка списка
+        сливалась с тёмным фоном, и понять, на какую приставку пойдёт трансляция,
+        можно было только по догадке. Теперь выбранная карточка обведена фирменным
+        цветом, а её фон слегка подсвечен.
+    -->
+    <Style Selector="ListBoxItem:selected Border.card">
+        <Setter Property="BorderBrush" Value="#35D6C4" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Background" Value="#122C29" />
+    </Style>
+
+    <Style Selector="ListBoxItem:selected TextBlock.name">
+        <Setter Property="Foreground" Value="#6AEFDF" />
+    </Style>
+
+    <!-- Собственная подсветка списка убрана: она перекрывала рамку выбора. -->
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <!-- Панель справа. -->
+    <Style Selector="Border.panel">
+        <Setter Property="Background" Value="{StaticResource WcSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource WcOutlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="18" />
+        <Setter Property="Padding" Value="22" />
+    </Style>
+
+    <!-- Главная кнопка: акцентная, крупная. -->
+    <Style Selector="Button.primary">
+        <Setter Property="Background" Value="{StaticResource WcAccentGradient}" />
+        <Setter Property="Foreground" Value="#04211E" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Padding" Value="22,13" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.primary /template/ ContentPresenter">
+        <Setter Property="Background" Value="{StaticResource WcAccentGradient}" />
+        <Setter Property="CornerRadius" Value="12" />
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{StaticResource WcAccentBrush}" />
+    </Style>
+    <Style Selector="Button.primary:disabled /template/ ContentPresenter">
+        <Setter Property="Background" Value="{StaticResource WcSurfaceHoverBrush}" />
+        <Setter Property="TextBlock.Foreground" Value="{StaticResource WcTextMutedBrush}" />
+    </Style>
+
+    <!-- Кнопка остановки: предупреждающая. -->
+    <Style Selector="Button.danger">
+        <Setter Property="Background" Value="#33FF5C5C" />
+        <Setter Property="Foreground" Value="#FFD9D9" />
+        <Setter Property="BorderBrush" Value="{StaticResource WcDangerBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Padding" Value="22,13" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.danger /template/ ContentPresenter">
+        <Setter Property="Background" Value="#33FF5C5C" />
+        <Setter Property="CornerRadius" Value="12" />
+    </Style>
+    <Style Selector="Button.danger:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#55FF5C5C" />
+    </Style>
+
+    <!-- Второстепенная кнопка. -->
+    <Style Selector="Button.ghost">
+        <Setter Property="Background" Value="{StaticResource WcSurfaceHoverBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource WcTextBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource WcOutlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="16,12" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.ghost /template/ ContentPresenter">
+        <Setter Property="Background" Value="{StaticResource WcSurfaceHoverBrush}" />
+        <Setter Property="CornerRadius" Value="12" />
+    </Style>
+    <Style Selector="Button.ghost:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#222A35" />
+    </Style>
+
+    <!-- Список устройств. -->
+    <Style Selector="ListBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style Selector="ListBoxItem">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0,0,0,10" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style Selector="ListBoxItem /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{StaticResource WcSurfaceHoverBrush}" />
+    </Style>
+
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+        <Setter Property="Background" Value="#1E2A33" />
+    </Style>
+
+    <!-- Поля ввода и выпадающие списки. -->
+    <Style Selector="TextBox">
+        <Setter Property="Background" Value="{StaticResource WcSurfaceElevatedBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource WcTextBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource WcOutlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="12,10" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="CaretBrush" Value="{StaticResource WcAccentBrush}" />
+    </Style>
+    <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="{StaticResource WcAccentBrush}" />
+    </Style>
+    <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="{StaticResource WcAccentDimBrush}" />
+    </Style>
+
+    <Style Selector="ComboBox">
+        <Setter Property="Background" Value="{StaticResource WcSurfaceElevatedBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource WcTextBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource WcOutlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="12,9" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+    <Style Selector="ComboBox /template/ ContentPresenter">
+        <Setter Property="Background" Value="{StaticResource WcSurfaceElevatedBrush}" />
+        <Setter Property="CornerRadius" Value="10" />
+    </Style>
+
+    <!-- Заголовок раздела настроек. -->
+    <Style Selector="TextBlock.field">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="{StaticResource WcTextMutedBrush}" />
+        <Setter Property="Margin" Value="0,0,0,6" />
+    </Style>
+
+    <!-- Индикатор состояния. -->
+    <Style Selector="Border.pill">
+        <Setter Property="CornerRadius" Value="999" />
+        <Setter Property="Padding" Value="14,7" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+</Styles>

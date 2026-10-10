@@ -1,0 +1,51 @@
+# ---- .NET ----
+bin/
+obj/
+*.user
+*.suo
+.vs/
+artifacts/
+publish/
+*.binlog
+
+# ---- Готовые сборки ----
+# Собираются скриптом tools/publish.ps1 и весят около 300 МБ (вместе с ffmpeg).
+# В репозиторий они не идут: их место — вложения выпуска на GitHub, откуда
+# приложение и будет брать обновления.
+dist/
+
+# ---- Android / Gradle ----
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+android/captures/
+*.apk
+*.aab
+*.keystore
+!android/keystore/.gitkeep
+
+# ---- Vendored binaries (downloaded by tools/fetch-ffmpeg.ps1) ----
+vendor/
+runtimes/
+
+# ---- Node (docs site / tooling, if added later) ----
+node_modules/
+.pnpm-store/
+
+# ---- JetBrains / VS Code ----
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# ---- OS ----
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- Logs ----
+*.log
+logs/

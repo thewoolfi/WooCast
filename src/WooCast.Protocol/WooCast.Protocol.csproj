@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>WooCast.Protocol</RootNamespace>
+    <AssemblyName>WooCast.Protocol</AssemblyName>
+  </PropertyGroup>
+
+</Project>

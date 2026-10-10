@@ -1,0 +1,76 @@
+# Сборка выпуска WooCast.
+#
+# Запускается по тегу вида v0.2.0 и прикладывает готовые сборки к выпуску.
+# Оттуда их берёт проверка обновлений в приложении: своего сервера для этого
+# не нужно, а вебхук не нужен тем более — приложение само спрашивает GitHub.
+#
+# Сборка идёт на серверах GitHub, ничего локально запускать не требуется.
+# ffmpeg и установщик драйвера скачиваются заново: в репозитории их нет и быть
+# не должно — там 167 МБ, которым место во вложениях выпуска.
+
+name: Выпуск
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+  # Ручной запуск: удобно проверить сборку до создания тега.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Собрать и приложить к выпуску
+    runs-on: windows-latest
+
+    steps:
+      - name: Забрать исходники
+        uses: actions/checkout@v4
+
+      - name: Установить .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Установить Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Скачать ffmpeg
+        shell: pwsh
+        run: ./tools/fetch-ffmpeg.ps1
+
+      - name: Скачать установщик драйвера геймпада
+        shell: pwsh
+        run: ./tools/fetch-vigem.ps1
+
+      - name: Собрать поставку и приложение для приставки
+        shell: pwsh
+        run: |
+          # Метка выпуска приходит с ведущей «v» — в именах файлов она лишняя.
+          $version = "${{ github.ref_name }}".TrimStart('v')
+          if ([string]::IsNullOrWhiteSpace($version)) { $version = '0.0.0' }
+
+          ./tools/publish.ps1 -Android -Version $version
+
+      - name: Приложить сборки к выпуску
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/WooCast-Desktop-*/WooCast.exe
+            dist/WooCast-TV-*.apk
+          generate_release_notes: true
+
+      - name: Сохранить сборки как артефакт
+        uses: actions/upload-artifact@v4
+        with:
+          name: woocast-build
+          path: |
+            dist/WooCast-Desktop-*/WooCast.exe
+            dist/WooCast-TV-*.apk

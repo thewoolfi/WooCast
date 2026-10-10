@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  SPDX-License-Identifier: MIT
+  Copyright (c) 2025 WooCast contributors
+
+  ActionBar-free dark theme based on the platform Material theme so that the app
+  does not depend on AppCompat / Material Components XML themes.
+-->
+<resources>
+    <style name="Theme.WooCast" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/wc_background</item>
+        <item name="android:colorBackground">@color/wc_background</item>
+        <item name="android:statusBarColor">#00000000</item>
+        <item name="android:navigationBarColor">#00000000</item>
+        <item name="android:windowActivityTransitions">false</item>
+        <item name="android:windowContentTransitions">false</item>
+    </style>
+</resources>

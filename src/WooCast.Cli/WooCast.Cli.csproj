@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- Версия Windows в TFM — ради проекций Windows SDK: ими проверяется доступность
+         Windows.Graphics.Capture (см. WooCast.Capture). -->
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <RootNamespace>WooCast.Cli</RootNamespace>
+    <AssemblyName>woocast</AssemblyName>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <!-- Осведомлённость о масштабе Windows: без неё координаты окон не совпадают
+         с физическим кадром захвата (см. комментарий в app.manifest). -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WooCast.Protocol\WooCast.Protocol.csproj" />
+    <ProjectReference Include="..\WooCast.Capture\WooCast.Capture.csproj" />
+  </ItemGroup>
+
+</Project>

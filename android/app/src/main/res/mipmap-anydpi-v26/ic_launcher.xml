@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  SPDX-License-Identifier: MIT
+  Copyright (c) 2025 WooCast contributors
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+      Подложка задаётся цветом, а знак — рисунком: раньше здесь стоял вектор
+      со старым изображением, и он перекрывал обновлённые значки на всех
+      устройствах с Android 8 и новее. Рисунок собирается tools/make-icons.py.
+    -->
+    <background android:drawable="@color/wc_launcher_background" />
+    <foreground android:drawable="@drawable/ic_launcher_mark" />
+</adaptive-icon>

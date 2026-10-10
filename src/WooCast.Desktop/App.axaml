@@ -1,0 +1,46 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="WooCast.Desktop.App"
+             RequestedThemeVariant="Dark">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Палитра WooCast. Те же значения использует приложение на телевизоре,
+                 поэтому связка «ПК + приставка» выглядит как один продукт. -->
+            <Color x:Key="WcBackground">#07090D</Color>
+            <Color x:Key="WcSurface">#11151C</Color>
+            <Color x:Key="WcSurfaceElevated">#161C25</Color>
+            <Color x:Key="WcSurfaceHover">#1A2029</Color>
+            <Color x:Key="WcOutline">#232A36</Color>
+            <Color x:Key="WcAccent">#35D6C4</Color>
+            <Color x:Key="WcAccentDim">#1E7A70</Color>
+            <Color x:Key="WcText">#E6EDF3</Color>
+            <Color x:Key="WcTextMuted">#8B949E</Color>
+            <Color x:Key="WcDanger">#FF5C5C</Color>
+            <Color x:Key="WcWarning">#FFC24B</Color>
+
+            <SolidColorBrush x:Key="WcBackgroundBrush" Color="{StaticResource WcBackground}" />
+            <SolidColorBrush x:Key="WcSurfaceBrush" Color="{StaticResource WcSurface}" />
+            <SolidColorBrush x:Key="WcSurfaceElevatedBrush" Color="{StaticResource WcSurfaceElevated}" />
+            <SolidColorBrush x:Key="WcSurfaceHoverBrush" Color="{StaticResource WcSurfaceHover}" />
+            <SolidColorBrush x:Key="WcOutlineBrush" Color="{StaticResource WcOutline}" />
+            <SolidColorBrush x:Key="WcAccentBrush" Color="{StaticResource WcAccent}" />
+            <SolidColorBrush x:Key="WcAccentDimBrush" Color="{StaticResource WcAccentDim}" />
+            <SolidColorBrush x:Key="WcTextBrush" Color="{StaticResource WcText}" />
+            <SolidColorBrush x:Key="WcTextMutedBrush" Color="{StaticResource WcTextMuted}" />
+            <SolidColorBrush x:Key="WcDangerBrush" Color="{StaticResource WcDanger}" />
+            <SolidColorBrush x:Key="WcWarningBrush" Color="{StaticResource WcWarning}" />
+
+            <!-- Акцентный градиент для логотипа и главной кнопки. -->
+            <LinearGradientBrush x:Key="WcAccentGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0" Color="#35D6C4" />
+                <GradientStop Offset="1" Color="#2E9BE8" />
+            </LinearGradientBrush>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://WooCast/Styles/Controls.axaml" />
+    </Application.Styles>
+</Application>

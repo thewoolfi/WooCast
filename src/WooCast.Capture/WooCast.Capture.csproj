@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Захват и кодирование этапа 1 опираются на Windows-фичи (ffmpeg ddagrab / gdigrab).
+         При добавлении Linux-отправителя этот проект получит вторую TFM и реализации
+         ICaptureSource для PipeWire/X11.
+
+         Версия Windows в TFM нужна ради проекций Windows SDK: без неё недоступны
+         Windows.Graphics.Capture и Direct3D11CaptureFramePool, которыми захватывается
+         содержимое окна независимо от того, что его перекрывает. 10.0.19041 —
+         Windows 10 2004: там GraphicsCaptureSession уже поддерживается. -->
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <RootNamespace>WooCast.Capture</RootNamespace>
+    <AssemblyName>WooCast.Capture</AssemblyName>
+    <!-- Небезопасный код нужен для прямых вызовов через таблицы методов COM:
+         встроенное COM-взаимодействие .NET доступно не везде (в консольном приложении
+         оно выключено), а захват окна без этих вызовов не работает. -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WooCast.Protocol\WooCast.Protocol.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Захват системного звука: ffmpeg не умеет WASAPI loopback, а DirectShow требует
+         включённого «Стерео микшера», которого на большинстве машин нет.
+         NAudio.Wasapi распространяется под MIT и не тянет транзитивных зависимостей. -->
+    <PackageReference Include="NAudio.Wasapi" Version="22.0.0" />
+    <PackageReference Include="Nefarius.ViGEm.Client" Version="1.21.256" />
+  </ItemGroup>
+
+</Project>
