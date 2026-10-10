@@ -32,6 +32,11 @@ WooCast has two parts:
 No internet, no sign-up, no telemetry: everything travels directly between your devices
 on the local network over our own protocol, [WCP/1](docs/protocol.md).
 
+## Download
+
+[**Ready-made builds**](https://github.com/thewoolfi/WooCast/releases) — a Windows installer
+(the app, ffmpeg and the gamepad driver; no administrator rights needed) and an APK for a
+set-top box, TV or phone.
 ## Features
 
 ## Status
