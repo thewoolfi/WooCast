@@ -161,6 +161,17 @@ public static class UpdateInstaller
                 return null;
             }
 
+            // Установщик не подменяет файлы сам: он ставит программу целиком и умеет
+            // закрыть работающее приложение. Поэтому он просто запускается, а работа
+            // завершается — иначе установщик не сможет обновить занятые файлы.
+            var downloadedName = Path.GetFileName(downloadedPath);
+
+            if (downloadedName.Contains("setup", StringComparison.OrdinalIgnoreCase) ||
+                downloadedName.Contains("install", StringComparison.OrdinalIgnoreCase))
+            {
+                return Process.Start(new ProcessStartInfo(downloadedPath) { UseShellExecute = true });
+            }
+
             // Скачанное переносим рядом с программой: помощник работает в той же папке,
             // и путь не зависит от временного каталога, который может быть очищен.
             var staged = current + ".new";

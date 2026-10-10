@@ -132,36 +132,39 @@ public static class UpdateChecker
             return (null, null);
         }
 
-        foreach (var asset in assets.EnumerateArray())
+        // Сначала ищется сама сборка приложения и только потом установщик.
+        // Порядок вложений в выпуске учитывать нельзя: GitHub отдаёт их не в том
+        // порядке, в каком их залили, — на этом уже была ошибка.
+        foreach (var preferInstaller in new[] { false, true })
         {
-            var name = asset.TryGetProperty("name", out var nameElement) ? nameElement.GetString() : null;
-
-            if (name is null || !name.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+            foreach (var asset in assets.EnumerateArray())
             {
-                continue;
+                var name = asset.TryGetProperty("name", out var nameElement) ? nameElement.GetString() : null;
+
+                if (name is null || !name.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                var isInstaller =
+                    name.Contains("setup", StringComparison.OrdinalIgnoreCase) ||
+                    name.Contains("install", StringComparison.OrdinalIgnoreCase);
+
+                if (isInstaller != preferInstaller)
+                {
+                    continue;
+                }
+
+                var url = asset.TryGetProperty("browser_download_url", out var urlElement)
+                    ? urlElement.GetString()
+                    : null;
+
+                var digest = asset.TryGetProperty("digest", out var digestElement)
+                    ? digestElement.GetString()
+                    : null;
+
+                return (url, digest);
             }
-
-            // Установщик не подходит. Приложение обновляет себя, подменяя собственный
-            // файл скачанным, и если скачать установщик, оно заменит себя им, а не
-            // обновится. Нужна сама сборка приложения.
-            //
-            // Это не мелочь: GitHub отдаёт вложения не в том порядке, в каком их
-            // заливали, и первым в выпуске может оказаться именно установщик.
-            if (name.Contains("setup", StringComparison.OrdinalIgnoreCase) ||
-                name.Contains("install", StringComparison.OrdinalIgnoreCase))
-            {
-                continue;
-            }
-
-            var url = asset.TryGetProperty("browser_download_url", out var urlElement)
-                ? urlElement.GetString()
-                : null;
-
-            var digest = asset.TryGetProperty("digest", out var digestElement)
-                ? digestElement.GetString()
-                : null;
-
-            return (url, digest);
         }
 
         return (null, null);
